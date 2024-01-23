@@ -20,7 +20,12 @@ app.use((req, res, next) => { // log information about user requests
 
 app.get('/', (req, res) => { // routes requests for "/" to our poll
     const title = 'Poll';
-    res.render('poll', {title});
+    const choices = [
+        {option: 'Option One'},
+        {option: 'Option Two'},
+        {option: 'Option Three'},
+    ];
+    res.render('poll', {choices, title});
 });
 
 app.get('/results', (req, res) => { // routes requests for "/results to our results page
