@@ -1,6 +1,9 @@
 <html lang="en">
 
-<%- include('./partials/head.ejs') %>
+<head>
+    <%- include('./partials/head.ejs') %>
+    <script src="/scripts.js"></script>
+</head>
 
 <body>
     <nav>
@@ -10,8 +13,10 @@
     <!-- EJS to insert poll data-->
     <% if (choices.length > 0) { %>
         <h1><%= question %></h1>
+        <% let buttonCounter = 1; %>
         <% choices.forEach(option => { %>
-            <button type="button" class="option"><%= option.option %></button>
+            <button type="button" class="option" id="<%= buttonCounter %>"><%= option.option %></button>
+            <% buttonCounter++; %>
         <% }) %>
         <button type="button" class="submit">Submit Option</button>
     <% } else { %>

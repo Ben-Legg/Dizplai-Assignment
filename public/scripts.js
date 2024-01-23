@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => { // Wait until DOM is loaded
-    
+
     // Event listeners for option buttons
-    const optionButtons = document.querySelectorAll('.option'); // Select options buttons
+    let optionButtons = document.querySelectorAll('.option'); // Select options buttons
     optionButtons.forEach(button => { // Add event listeners for each option button
         button.addEventListener('click', function () {
             optionButtons.forEach(btn => btn.classList.remove('selected')); // De-select other options
@@ -11,17 +11,35 @@ document.addEventListener('DOMContentLoaded', () => { // Wait until DOM is loade
     
     
     // Event listener for submit button
-    const submitButton = document.querySelector('.submit'); // Select submit button
+    let submitButton = document.querySelector('.submit'); // Select submit button
     submitButton.addEventListener('click', () => { // Add event listeners
         
-        const isOptionClicked = Array.from(optionButtons).some(btn => btn.classList.contains('selected')); // Find if any option button has been selected
-        if (!isOptionClicked) { // If no options are selected give class 'not-selected' for 2 seconds
+        let selectedButton = document.querySelector('.selected');
+
+        if (!selectedButton) { // If no options are selected give class 'not-selected' for 2 seconds
             submitButton.classList.toggle('not-selected');
             setTimeout(() => {
                 submitButton.classList.remove('not-selected');
             }, 2000);
         } else {
-            submitButton.classList.toggle('selected');
+            let endpoint = '/submitOption'; // Server endpoint for handling selected option
+            let selectedOption = selectedButton.id; // Get ID of option chosen
+    
+            fetch(endpoint, { // Send POST request to endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', // Sent as JSON
+                },
+                body: JSON.stringify({ selectedOption }), // Convert to JSON string
+            })
+            .then(response => response.json()) // Convert response from server
+            .then(data => {
+                console.log('Option submitted successfully:', data); // Log response to console
+                window.location.href = '/results';
+            })
+            .catch(error => { // Log errors occuring during fetch request
+                console.error('Error submitting option:', error);
+            });
         }
     });
 });

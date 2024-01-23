@@ -18,22 +18,22 @@ app.use((req, res, next) => { // log information about user requests
 
 
 // Routing requests --------------
-app.get('/', (req, res) => { // routes requests for "/" to our poll
-    const title = 'Poll';
-    const pollId = 1; // Choose poll we want to quiz people on by pollId
+app.get('/', (req, res) => { // route requests for "/" to our poll
+    let title = 'Poll';
+    let pollId = 1; // Choose poll we want to quiz people on by pollId
     let choices = [];
     let question = '';
     try {
-        const allPollsData = JSON.parse(fs.readFileSync('data/polls.json')); // Read poll data from file and parse to JSON
-        const pollData = allPollsData.find(poll => poll.pollId === pollId); // Find data object by pollId
+        let allPollsData = JSON.parse(fs.readFileSync('data/polls.json')); // Read poll data from file and parse to JSON
+        let pollData = allPollsData.find(poll => poll.pollId === pollId); // Find data object by pollId
         
         if (pollData) { // save poll data if poll with desired ID is found
             question = pollData.question;
 
             // Seach through option array to find poll options
-            const optionOne = pollData.options.find(option => option.optionId === 1);
-            const optionTwo = pollData.options.find(option => option.optionId === 2);
-            const optionThree = pollData.options.find(option => option.optionId === 3);
+            let optionOne = pollData.options.find(option => option.optionId === 1);
+            let optionTwo = pollData.options.find(option => option.optionId === 2);
+            let optionThree = pollData.options.find(option => option.optionId === 3);
 
             if (optionOne && optionTwo && optionThree) { // save option text if poll has three options
                 choices = [
@@ -48,8 +48,8 @@ app.get('/', (req, res) => { // routes requests for "/" to our poll
             console.log(`Poll with pollId: ${pollId} not found.`);
         };
         
-        res.render('poll', {choices, title, question});
-        
+        res.render('poll', {title, question, choices});
+
     } catch (error) {
         console.error('Error loading or parsing poll data:', error);
         res.status(500).render('poll', {choices, title});
@@ -57,12 +57,20 @@ app.get('/', (req, res) => { // routes requests for "/" to our poll
     
 });
 
+app.post('/submitOption', express.json(), (req, res) => { // Endpoint for POST requests when users submit poll option
+    let selectedOption = req.body.selectedOption; // Extract selected option from request body
+
+    console.log('Received selected option:', selectedOption);
+
+    res.json({ success: true, message: `Option ${selectedOption} submitted successfully` }); // Send response to confirm data has been recieved
+});
+
 app.get('/results', (req, res) => { // routes requests for "/results to our results page
-    const title = 'Results';
+    let title = 'Results';
     res.render('results', {title});
 });
 
 app.use((req, res) => { // routes requests to unknown paths to 404 page
-    const title = '404 Error';
+    let title = '404 Error';
     res.status(404).render('404', {title}); // sets 404 status for
 });
