@@ -13,7 +13,20 @@ app.use((req, res, next) => { // log information about user requests
     next();
 });
 
+
+// Routing requests
+
 app.get('/', (req, res) => { // routes requests for "/" to our poll
     const title = 'Poll';
     res.render('poll', {title});
+});
+
+app.get('/results', (req, res) => { // routes requests for "/results to our results page
+    const title = 'Results';
+    res.render('results', {title});
+});
+
+app.use((req, res) => { // routes requests to unknown paths to 404 page
+    const title = '404 Error';
+    res.status(404).render('404', {title}); // sets 404 status for browser
 });
