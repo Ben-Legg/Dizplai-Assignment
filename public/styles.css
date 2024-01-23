@@ -1,5 +1,105 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit');
+
+@keyframes wiggle {
+    0% {
+        transform: rotate(-4deg);
+    }
+    50% {
+        transform: rotate(4deg);
+    }
+    100% {
+        transform: rotate(-4deg);
+    }
+}
 
 body {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    background-image: url('assets/background.jpg');
+    background-size: cover;
     font-family: 'Outfit', sans-serif;
+    color: #FFF;
+}
+
+.container {
+    width: 80%;
+    max-width: 400px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.container img {
+    width: 40%;
+    height: auto;
+}
+
+h1 {
+    margin-block: 1.5em;
+}
+
+.container button {
+    width: 70%;
+    margin-block: 0.6em;
+    padding: 1em 0.5em;
+    border-radius: 5px;
+    border: solid #FFF 2px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1em;
+}
+
+button.option {
+    transition: 1.5s;
+    color: #FFF;
+    background-color: #ffffff31;
+}
+
+button.option:hover{
+    border-radius: 20px;
+    background-color: #ffffff65;
+}
+
+button.option.selected {
+    background-color: #ffffff83;
+}
+
+button.submit {
+    font-weight: bold;
+    letter-spacing: 2px;
+    transition: 0.25s;
+    border: solid #8C8C8C 2px;
+    background-color: #FFF;
+    color: #996BF9;
+}
+
+button.not-selected {
+    animation: wiggle 0.25s ease-in-out 2 alternate;
+    color: #f72f2f;
+}
+
+@media screen and (min-width: 640px) {
+    
+    h1 {
+        margin-block: 1.1em;
+        font-size: 2.5em;
+    }
+
+    .container button {
+        font-size: 1.25em;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+
+    h1 {
+        font-size: 3em;
+    }
+
+    .container button {
+        width: 80%;
+        font-size: 1.5em;
+    }
 }

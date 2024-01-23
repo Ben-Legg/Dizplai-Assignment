@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => { // Wait until DOM is loade
             submitButton.classList.toggle('not-selected');
             setTimeout(() => {
                 submitButton.classList.remove('not-selected');
-            }, 2000);
+            }, 500);
         } else {
             let endpoint = '/submitOption'; // Server endpoint for handling selected option
             let selectedOption = selectedButton.id; // Get ID of option chosen

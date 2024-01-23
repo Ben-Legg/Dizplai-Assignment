@@ -6,24 +6,24 @@
 </head>
 
 <body>
-    <nav>
-        <a href="/results">Results</a>
-    </nav>
+    <div class="container">
+        <img src="assets/logo.png">
+        <!-- EJS to insert poll data-->
+        <% if (choices.length > 0) { %>
+            <h1><%= question %></h1>
+            <% let buttonCounter = 1; %>
+            <% choices.forEach(option => { %>
+                <button type="button" class="option" id="<%= buttonCounter %>"><%= option.option %></button>
+                <% buttonCounter++; %>
+            <% }) %>
+            <button type="button" class="submit">SUBMIT</button>
+        <% } else { %>
+            <div>
+                <h1>No Poll Data Available</h1>
+            </div>
+        <% } %>
 
-    <!-- EJS to insert poll data-->
-    <% if (choices.length > 0) { %>
-        <h1><%= question %></h1>
-        <% let buttonCounter = 1; %>
-        <% choices.forEach(option => { %>
-            <button type="button" class="option" id="<%= buttonCounter %>"><%= option.option %></button>
-            <% buttonCounter++; %>
-        <% }) %>
-        <button type="button" class="submit">Submit Option</button>
-    <% } else { %>
-        <div>
-            <h1>No Poll Data Available</h1>
-        </div>
-    <% } %>
+    </div>
 
 </body>
 </html>
