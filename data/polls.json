@@ -1,0 +1,40 @@
+[
+    {
+        "pollId": 1,
+        "pollName": "Premier League Winner",
+        "question": "Who will win the Premier League?",
+        "options": [
+            {
+                "optionId": 1,
+                "optionText": "Manchester City"
+            },
+            {
+                "optionId": 2,
+                "optionText": "Arsenal"
+            },
+            {
+                "optionId": 3,
+                "optionText": "Liverpool"
+            }
+        ]
+    },
+    {
+        "pollId": 2,
+        "pollName": "Most popular colour",
+        "question": "What is your favourite colour?",
+        "options": [
+            {
+                "optionId": 1,
+                "optionText": "Red"
+            },
+            {
+                "optionId": 2,
+                "optionText": "Green"
+            },
+            {
+                "optionId": 3,
+                "optionText": "Blue"
+            }
+        ]
+    }
+]
