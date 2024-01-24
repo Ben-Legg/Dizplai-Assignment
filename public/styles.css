@@ -80,6 +80,10 @@ button.not-selected {
     color: #f72f2f;
 }
 
+button.submitted {
+    color: #23e923;
+}
+
 @media screen and (min-width: 640px) {
     
     h1 {

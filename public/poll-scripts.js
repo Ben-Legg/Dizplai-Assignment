@@ -1,5 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => { // Wait until DOM is loaded
 
+    window.addEventListener('pageshow', () => { // Remove classes for previous poll submission when revisiting page
+        let prevChoice = document.querySelector('.selected');
+        let prevSubmission = document.querySelector('.submitted');
+
+        if (prevChoice) {
+            prevChoice.classList.remove('selected');
+        }
+        if (prevSubmission) {
+            prevSubmission.classList.remove('submitted');
+        }
+    });
+
     // Event listeners for option buttons
     let optionButtons = document.querySelectorAll('.option'); // Select options buttons
     optionButtons.forEach(button => { // Option button event listeners
