@@ -16,15 +16,18 @@ app.use((req, res, next) => { // log information about user requests
     next();
 });
 
+// Choose poll and declare poll data file paths --------------
+const pollId = 1; // Choose poll we want to quiz people on by pollId
+const pollPath = 'data/polls.json';
+const resultsPath = 'data/results.json';
 
 // Routing requests --------------
 app.get('/', (req, res) => { // route requests for "/" to our poll
     let title = 'Poll';
-    let pollId = 1; // Choose poll we want to quiz people on by pollId
     let choices = [];
     let question = '';
     try {
-        let allPollsData = JSON.parse(fs.readFileSync('data/polls.json')); // Read poll data from file and parse to JSON
+        let allPollsData = JSON.parse(fs.readFileSync(pollPath)); // Read poll data from file and parse to JSON
         let pollData = allPollsData.find(poll => poll.pollId === pollId); // Find data object by pollId
         
         if (pollData) { // save poll data if poll with desired ID is found
@@ -59,8 +62,30 @@ app.get('/', (req, res) => { // route requests for "/" to our poll
 
 app.post('/submitOption', express.json(), (req, res) => { // Endpoint for POST requests when users submit poll option
     let selectedOption = req.body.selectedOption; // Extract selected option from request body
+    let resultsData = [];
+    try {
+        resultsData = JSON.parse(fs.readFileSync(resultsPath)); // Read results data from file and parse to JSON
+    } catch (error) {
+        console.error('Error reading existing data:', error.message);
+    }
+    
+    resultsData.forEach(result => { // Update voteCount for selected option
+        if (result.pollId == pollId) { // Find results data for current poll
+            result.options.forEach(option => { // Search through each option in array
+                if (option.optionId == selectedOption) { // Increment voteCount of selected option
+                    option.voteCount ++ ;
+                }
+            });
+        }
+    });
 
-    console.log('Received selected option:', selectedOption);
+    fs.writeFile(resultsPath, JSON.stringify(resultsData, null, 4), (err) => { // Write updated results object to results.JSON
+        if (err) {
+            console.error('Error writing to file:', err.message); // Handle the error appropriately
+        } else {
+            console.log('VoteCount updated in results.json');
+        }
+    });
 
     res.json({ success: true, message: `Option ${selectedOption} submitted successfully` }); // Send response to confirm data has been recieved
 });
