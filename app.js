@@ -1,6 +1,6 @@
 // Import modules --------------
 const express = require('express');
-const fs = require('fs')
+const fs = require('fs');
 
 // Server setup --------------
 const app = express(); // start an express app
@@ -9,10 +9,7 @@ app.listen(3000); // listen for requests on port 3000, automatically assume addr
 app.use(express.static('public')); // static files for browser are in "public" folder
 
 app.use((req, res, next) => { // log information about user requests
-    console.log('\nNew Request:');
-    console.log('host:', req.hostname);
-    console.log('path:', req.path);
-    console.log('method:', req.method);
+    console.log(`\nNew Request:\nHost: ${req.hostname}\nPath: ${req.path}\nMethod: ${req.method}`);
     next();
 });
 
@@ -42,19 +39,19 @@ app.get('/', (req, res) => { // route requests for "/" to our poll
                 choices = [
                     {option: optionOne.optionText},
                     {option: optionTwo.optionText},
-                    {option: optionThree.optionText},
+                    {option: optionThree.optionText}
                 ];
             } else {
                 console.log(`Options not found for pollId: ${pollId}.`);
             }
         } else {
             console.log(`Poll with pollId: ${pollId} not found.`);
-        };
+        }
         
         res.render('poll', {title, question, choices});
 
     } catch (error) {
-        console.error('Error loading or parsing poll data:', error);
+        console.error('Error loading or parsing poll data:', error.message);
         res.status(500).render('poll', {choices, title});
     }
     
@@ -65,27 +62,26 @@ app.post('/submitOption', express.json(), (req, res) => { // Endpoint for POST r
     let resultsData = [];
     try {
         resultsData = JSON.parse(fs.readFileSync(resultsPath)); // Read results data from file and parse to JSON
+        resultsData.forEach(result => { // Update voteCount for selected option
+            if (result.pollId == pollId) { // Find results data for current poll
+                result.options.forEach(option => { // Search through each option in array
+                    if (option.optionId == selectedOption) { // Increment voteCount of selected option
+                        option.voteCount ++ ;
+                    }
+                });
+            }
+        });
+
+        fs.writeFile(resultsPath, JSON.stringify(resultsData, null, 4), (error) => { // Write updated results object to results.JSON
+            if (error) {
+                console.error('Error writing to file:', error.message); // Handle the error appropriately
+            }
+        });
+
     } catch (error) {
         console.error('Error reading existing data:', error.message);
     }
     
-    resultsData.forEach(result => { // Update voteCount for selected option
-        if (result.pollId == pollId) { // Find results data for current poll
-            result.options.forEach(option => { // Search through each option in array
-                if (option.optionId == selectedOption) { // Increment voteCount of selected option
-                    option.voteCount ++ ;
-                }
-            });
-        }
-    });
-
-    fs.writeFile(resultsPath, JSON.stringify(resultsData, null, 4), (err) => { // Write updated results object to results.JSON
-        if (err) {
-            console.error('Error writing to file:', err.message); // Handle the error appropriately
-        } else {
-            console.log('VoteCount updated in results.json');
-        }
-    });
 
     res.json({ success: true, message: `Option ${selectedOption} submitted successfully` }); // Send response to confirm data has been recieved
 });

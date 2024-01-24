@@ -12,34 +12,36 @@ document.addEventListener('DOMContentLoaded', () => { // Wait until DOM is loade
     
     // Event listener for submit button
     let submitButton = document.querySelector('.submit'); // Select submit button
-    submitButton.addEventListener('click', () => { // Add event listeners
-        
-        let selectedButton = document.querySelector('.selected');
-
-        if (!selectedButton) { // If no options are selected give class 'not-selected' for 2 seconds
-            submitButton.classList.toggle('not-selected');
-            setTimeout(() => {
-                submitButton.classList.remove('not-selected');
-            }, 500);
-        } else {
-            let endpoint = '/submitOption'; // Server endpoint for handling selected option
-            let selectedOption = selectedButton.id; // Get ID of option chosen
-    
-            fetch(endpoint, { // Send POST request to endpoint
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json', // Sent as JSON
-                },
-                body: JSON.stringify({ selectedOption }), // Convert to JSON string
-            })
-            .then(response => response.json()) // Convert response from server
-            .then(data => {
-                console.log('Option submitted successfully:', data); // Log response to console
-                window.location.href = '/results';
-            })
-            .catch(error => { // Log errors occuring during fetch request
-                console.error('Error submitting option:', error);
-            });
-        }
-    });
+    if (submitButton) {  
+        submitButton.addEventListener('click', () => { // Add event listeners
+            
+            let selectedButton = document.querySelector('.selected');
+            
+            if (!selectedButton) { // If no options are selected give class 'not-selected' for 2 seconds
+                submitButton.classList.toggle('not-selected');
+                setTimeout(() => {
+                    submitButton.classList.remove('not-selected');
+                }, 500);
+            } else {
+                let endpoint = '/submitOption'; // Server endpoint for handling selected option
+                let selectedOption = selectedButton.id; // Get ID of option chosen
+                
+                fetch(endpoint, { // Send POST request to endpoint
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json', // Sent as JSON
+                    },
+                    body: JSON.stringify({ selectedOption }), // Convert to JSON string
+                })
+                .then(response => response.json()) // Convert response from server
+                .then(data => {
+                    console.log('Option submitted successfully:', data); // Log response to console
+                    window.location.href = '/results';
+                })
+                .catch(error => { // Log errors occuring during fetch request
+                    console.error('Error submitting option:', error);
+                });
+            }
+        });
+    }
 });
