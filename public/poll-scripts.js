@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => { // Wait until DOM is loade
 
     // Event listeners for option buttons
     let optionButtons = document.querySelectorAll('.option'); // Select options buttons
-    optionButtons.forEach(button => { // Add event listeners for each option button
+    optionButtons.forEach(button => { // Option button event listeners
         button.addEventListener('click', function () {
             optionButtons.forEach(btn => btn.classList.remove('selected')); // De-select other options
             button.classList.toggle('selected'); // Select button chosen
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => { // Wait until DOM is loade
     // Event listener for submit button
     let submitButton = document.querySelector('.submit'); // Select submit button
     if (submitButton) {  
-        submitButton.addEventListener('click', () => { // Add event listeners
+        submitButton.addEventListener('click', () => { // Submit button event listener
             
             let selectedButton = document.querySelector('.selected');
             
@@ -35,8 +35,13 @@ document.addEventListener('DOMContentLoaded', () => { // Wait until DOM is loade
                 })
                 .then(response => response.json()) // Convert response from server
                 .then(data => {
-                    console.log('Option submitted successfully:', data); // Log response to console
-                    window.location.href = '/results';
+                    console.log(`Success: ${data.success}\t Message: ${data.message}`); // Log response
+                    if (data.success == true){
+                        submitButton.classList.toggle('submitted');
+                        setTimeout(() => { // Redirect the page after a 0.5s delay
+                            window.location.href = '/results';
+                        }, 500);
+                    }
                 })
                 .catch(error => { // Log errors occuring during fetch request
                     console.error('Error submitting option:', error);

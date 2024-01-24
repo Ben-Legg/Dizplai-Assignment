@@ -42,7 +42,7 @@ app.get('/', (req, res) => { // route requests for "/" to our poll
                     {option: optionThree.optionText}
                 ];
             } else {
-                console.log(`Options not found for pollId: ${pollId}.`);
+                console.log(`Options for pollId: ${pollId} not found.`);
             }
         } else {
             console.log(`Poll with pollId: ${pollId} not found.`);
@@ -74,16 +74,18 @@ app.post('/submitOption', express.json(), (req, res) => { // Endpoint for POST r
 
         fs.writeFile(resultsPath, JSON.stringify(resultsData, null, 4), (error) => { // Write updated results object to results.JSON
             if (error) {
-                console.error('Error writing to file:', error.message); // Handle the error appropriately
+                console.error('Error writing to file:', error.message);
+                res.status(500).json({ success: false, message: 'Error saving submitted option' });
+            } else {
+                // Send a JSON response indicating success
+                res.json({ success: true, message: `Option ${selectedOption} submitted` });
             }
         });
 
     } catch (error) {
         console.error('Error reading existing data:', error.message);
+        res.status(500).json({ success: false, message: 'Error reading results data' });
     }
-    
-
-    res.json({ success: true, message: `Option ${selectedOption} submitted successfully` }); // Send response to confirm data has been recieved
 });
 
 app.get('/results', (req, res) => { // routes requests for "/results to our results page
