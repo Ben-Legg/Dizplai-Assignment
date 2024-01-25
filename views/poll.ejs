@@ -14,12 +14,16 @@
             <% let optionTwo = pollData.options.find(option => option.optionId === 2);%>
             <% let optionThree = pollData.options.find(option => option.optionId === 3);%>
             <% let choices = [ {option: optionOne.optionText}, {option: optionTwo.optionText}, {option: optionThree.optionText}]; %>
-            <% let buttonCounter = 1; %>
+            <% let optionCounter = 1; %>
             <% choices.forEach(option => { %>
-                <button type="button" class="option" id="<%= buttonCounter %>"><%= option.option %></button>
-                <% buttonCounter++; %>
+                <div class="option" id="<%= optionCounter %>">
+                    <p><%= option.option %></p>
+                </div>
+                <% optionCounter++; %>
             <% }) %>
-            <button type="button" class="submit">SUBMIT</button>
+            <div class="submit">
+                <p>SUBMIT</p>
+            </div>
         <% } else { %>
             <div>
                 <h1>No Poll Data Available</h1>

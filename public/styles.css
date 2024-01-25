@@ -41,33 +41,35 @@ h1 {
     margin-block: 1.5em;
 }
 
-.container button {
+.container div {
     width: 70%;
     margin-block: 0.6em;
     padding: 1em 0.5em;
     border-radius: 5px;
     border: solid #FFF 2px;
-    font-family: 'Outfit', sans-serif;
+}
+
+.container div p {
+    margin: 0;
     font-size: 1em;
 }
 
-button.option {
+div.option {
     transition: 1.5s;
     cursor: pointer;
-    color: #FFF;
     background-color: #ffffff31;
 }
 
-button.option:hover{
+div.option:hover{
     border-radius: 20px;
     background-color: #ffffff65;
 }
 
-button.option.selected {
+div.option.selected {
     background-color: #ffffff83;
 }
 
-button.submit {
+div.submit {
     font-weight: bold;
     letter-spacing: 2px;
     transition: 0.25s;
@@ -77,16 +79,16 @@ button.submit {
     color: #996BF9;
 }
 
-button.not-selected {
+div.not-selected {
     animation: wiggle 0.25s ease-in-out 2 alternate;
     color: #f72f2f;
 }
 
-button.submitted {
+div.submitted {
     color: #23e923;
 }
 
-button.result {
+div.result {
     color: #FFF;
     background-color: #ffffff31;
 }
@@ -98,7 +100,7 @@ button.result {
         font-size: 2.5em;
     }
 
-    .container button {
+    .container div {
         font-size: 1.25em;
     }
 }
@@ -109,7 +111,11 @@ button.result {
         font-size: 3em;
     }
 
-    .container button {
+    .container {
+        max-width: 500px;
+    }
+    
+    .container div {
         width: 80%;
         font-size: 1.5em;
     }

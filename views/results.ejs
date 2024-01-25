@@ -13,8 +13,10 @@
             <% let optionTwoResult = resultsData.options.find(option => option.optionId === 2);%>
             <% let optionThreeResult = resultsData.options.find(option => option.optionId === 3);%>
             <% let results = [ {option: optionOneResult.voteCount}, {option: optionTwoResult.voteCount}, {option: optionThreeResult.voteCount}]; %>
-            <% results.forEach(option => { %>
-                <button type="button" class="result"><%= option.option %></button>
+            <% results.forEach(result => { %>
+                <div class="result">
+                    <p><%= result.option %></p>
+                </div>
             <% }) %>
         <% } else { %>
             <div>
