@@ -47,13 +47,11 @@ document.addEventListener('DOMContentLoaded', () => { // Wait until DOM is loade
                 })
                 .then(response => response.json()) // Convert response from server
                 .then(data => {
-                    console.log(`Success: ${data.success}\t Message: ${data.message}`); // Log response
-                    if (data.success == true){
-                        submitButton.classList.toggle('submitted');
-                        setTimeout(() => { // Redirect the page after a 0.5s delay
-                            window.location.href = '/results';
-                        }, 500);
-                    }
+                    console.log(`Submitted: ${data.success}\t Message: ${data.message}`); // Log response
+                    submitButton.classList.toggle('submitted');
+                    setTimeout(() => { // Redirect the page after a 0.5s delay
+                        window.location.href = '/results';
+                    }, 500);
                 })
                 .catch(error => { // Log errors occuring during fetch request
                     console.error('Error submitting option:', error);

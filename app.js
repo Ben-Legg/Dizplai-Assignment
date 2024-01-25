@@ -21,40 +21,16 @@ const resultsPath = 'data/results.json';
 // Routing requests --------------
 app.get('/', (req, res) => { // route requests for "/" to our poll
     let title = 'Poll';
-    let choices = [];
-    let question = '';
+    let pollData = [];
     try {
         let allPollsData = JSON.parse(fs.readFileSync(pollPath)); // Read poll data from file and parse to JSON
-        let pollData = allPollsData.find(poll => poll.pollId === pollId); // Find data object by pollId
-        
-        if (pollData) { // save poll data if poll with desired ID is found
-            question = pollData.question;
+        pollData = allPollsData.find(poll => poll.pollId === pollId); // Find data object by pollId
 
-            // Seach through option array to find poll options
-            let optionOne = pollData.options.find(option => option.optionId === 1);
-            let optionTwo = pollData.options.find(option => option.optionId === 2);
-            let optionThree = pollData.options.find(option => option.optionId === 3);
-
-            if (optionOne && optionTwo && optionThree) { // save option text if poll has three options
-                choices = [
-                    {option: optionOne.optionText},
-                    {option: optionTwo.optionText},
-                    {option: optionThree.optionText}
-                ];
-            } else {
-                console.log(`Options for pollId: ${pollId} not found.`);
-            }
-        } else {
-            console.log(`Poll with pollId: ${pollId} not found.`);
-        }
-        
-        res.render('poll', {title, question, choices});
-
+        res.render('poll', {title, pollData});
     } catch (error) {
         console.error('Error loading or parsing poll data:', error.message);
-        res.status(500).render('poll', {choices, title});
+        res.status(500).render('poll', {title, pollData});
     }
-    
 });
 
 app.post('/submitOption', express.json(), (req, res) => { // Endpoint for POST requests when users submit poll option
