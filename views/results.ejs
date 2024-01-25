@@ -9,13 +9,30 @@
         <img src="assets/logo.png">
         <% if (Object.keys(resultsData).length > 0) { %>
             <h1>Thank you for your response!</h1>
+            <!-- Get text for each poll option from pollData object -->
+            <% let optionOne = pollData.options.find(option => option.optionId === 1);%>
+            <% let optionTwo = pollData.options.find(option => option.optionId === 2);%>
+            <% let optionThree = pollData.options.find(option => option.optionId === 3);%>
+            <% let choices = [ {option: optionOne.optionText}, {option: optionTwo.optionText}, {option: optionThree.optionText}]; %>
+
+            <!-- Get result for each poll option from resultsData object -->
             <% let optionOneResult = resultsData.options.find(option => option.optionId === 1);%>
             <% let optionTwoResult = resultsData.options.find(option => option.optionId === 2);%>
             <% let optionThreeResult = resultsData.options.find(option => option.optionId === 3);%>
             <% let results = [ {option: optionOneResult.voteCount}, {option: optionTwoResult.voteCount}, {option: optionThreeResult.voteCount}]; %>
-            <% results.forEach(result => { %>
+
+            <!-- Combine choices and results into a new array with both optionText and voteCount for the same optionId -->
+            <% let combinedResults = choices.map((choice, index) => ({ optionText: choice.option, voteCount: results[index].option })); %>
+
+            <!-- Sort the combinedResults array based on voteCount in descending order -->
+            <% combinedResults.sort((a, b) => b.voteCount - a.voteCount); %>
+
+            
+            <!-- Iterate over the sorted array to create the divs -->
+            <% combinedResults.forEach(combinedResult => { %>
                 <div class="result">
-                    <p><%= result.option %></p>
+                    <p><%= combinedResult.optionText %></p>
+                    <p><%= combinedResult.voteCount %></p>
                 </div>
             <% }) %>
         <% } else { %>

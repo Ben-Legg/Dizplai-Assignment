@@ -68,13 +68,15 @@ app.get('/results', (req, res) => { // routes requests for "/results to our resu
     let title = 'Results';
     let resultsData = [];
     try {
+        let allPollsData = JSON.parse(fs.readFileSync(pollPath)); // Read Poll data from file and parse to JSON
         let allResultsData = JSON.parse(fs.readFileSync(resultsPath)); // Read results data from file and parse to JSON
-        resultsData = allResultsData.find(poll => poll.pollId === pollId); // Find data object by pollId
+        resultsData = allResultsData.find(result => result.pollId === pollId); // Find data object by pollId
+        pollData = allPollsData.find(poll => poll.pollId === pollId); // Find data object by pollId
 
-        res.render('results', {title, resultsData});
+        res.render('results', {title, pollData, resultsData});
     } catch (error) {
         console.error('Error loading or parsing results data:', error.message);
-        res.status(500).render('results', {title, resultsData});
+        res.status(500).render('results', {title, pollData, resultsData});
     }
 });
 
