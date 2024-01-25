@@ -5,6 +5,22 @@
 </head>
 
 <body>
-    <h1>Results</h1>
+    <div class="container">
+        <img src="assets/logo.png">
+        <% if (Object.keys(resultsData).length > 0) { %>
+            <h1>Thank you for your response!</h1>
+            <% let optionOneResult = resultsData.options.find(option => option.optionId === 1);%>
+            <% let optionTwoResult = resultsData.options.find(option => option.optionId === 2);%>
+            <% let optionThreeResult = resultsData.options.find(option => option.optionId === 3);%>
+            <% let results = [ {option: optionOneResult.voteCount}, {option: optionTwoResult.voteCount}, {option: optionThreeResult.voteCount}]; %>
+            <% results.forEach(option => { %>
+                <button type="button" class="result"><%= option.option %></button>
+            <% }) %>
+        <% } else { %>
+            <div>
+                <h1>No Results Data Available</h1>
+            </div>
+        <% } %>
+    </div>
 </body>
 </html>

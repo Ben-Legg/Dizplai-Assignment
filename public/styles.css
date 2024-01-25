@@ -53,6 +53,7 @@ h1 {
 
 button.option {
     transition: 1.5s;
+    cursor: pointer;
     color: #FFF;
     background-color: #ffffff31;
 }
@@ -70,6 +71,7 @@ button.submit {
     font-weight: bold;
     letter-spacing: 2px;
     transition: 0.25s;
+    cursor: pointer;
     border: solid #8C8C8C 2px;
     background-color: #FFF;
     color: #996BF9;
@@ -82,6 +84,11 @@ button.not-selected {
 
 button.submitted {
     color: #23e923;
+}
+
+button.result {
+    color: #FFF;
+    background-color: #ffffff31;
 }
 
 @media screen and (min-width: 640px) {

@@ -66,7 +66,16 @@ app.post('/submitOption', express.json(), (req, res) => { // Endpoint for POST r
 
 app.get('/results', (req, res) => { // routes requests for "/results to our results page
     let title = 'Results';
-    res.render('results', {title});
+    let resultsData = [];
+    try {
+        let allResultsData = JSON.parse(fs.readFileSync(resultsPath)); // Read results data from file and parse to JSON
+        resultsData = allResultsData.find(poll => poll.pollId === pollId); // Find data object by pollId
+
+        res.render('results', {title, resultsData});
+    } catch (error) {
+        console.error('Error loading or parsing results data:', error.message);
+        res.status(500).render('results', {title, resultsData});
+    }
 });
 
 app.use((req, res) => { // routes requests to unknown paths to 404 page
