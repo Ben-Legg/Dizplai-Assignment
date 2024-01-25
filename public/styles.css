@@ -89,8 +89,19 @@ div.submitted {
 }
 
 div.result {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
     color: #FFF;
     background-color: #ffffff31;
+}
+
+.option-text {
+    width: 80%;
+}
+
+.vote-count {
+    width: 20%;
 }
 
 @media screen and (min-width: 640px) {

@@ -25,7 +25,9 @@ app.get('/', (req, res) => { // route requests for "/" to our poll
     try {
         let allPollsData = JSON.parse(fs.readFileSync(pollPath)); // Read poll data from file and parse to JSON
         pollData = allPollsData.find(poll => poll.pollId === pollId); // Find data object by pollId
-
+        if (pollData == undefined) { // If there is poll data but no poll matching pollId pollData is undefined
+            pollData = [];
+        }
         res.render('poll', {title, pollData});
     } catch (error) {
         console.error('Error loading or parsing poll data:', error.message);
@@ -66,13 +68,19 @@ app.post('/submitOption', express.json(), (req, res) => { // Endpoint for POST r
 
 app.get('/results', (req, res) => { // routes requests for "/results to our results page
     let title = 'Results';
+    let pollData = [];
     let resultsData = [];
     try {
         let allPollsData = JSON.parse(fs.readFileSync(pollPath)); // Read Poll data from file and parse to JSON
         let allResultsData = JSON.parse(fs.readFileSync(resultsPath)); // Read results data from file and parse to JSON
         resultsData = allResultsData.find(result => result.pollId === pollId); // Find data object by pollId
         pollData = allPollsData.find(poll => poll.pollId === pollId); // Find data object by pollId
-
+        if (pollData == undefined) { // If there is poll data but no poll matching pollId pollData is undefined
+            pollData = [];
+        }
+        if (resultsData == undefined) { // If there is poll data but no poll matching pollId pollData is undefined
+            resultsData = [];
+        }
         res.render('results', {title, pollData, resultsData});
     } catch (error) {
         console.error('Error loading or parsing results data:', error.message);
