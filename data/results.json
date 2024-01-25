@@ -4,15 +4,15 @@
         "options": [
             {
                 "optionId": 1,
-                "voteCount": 0
+                "voteCount": 10
             },
             {
                 "optionId": 2,
-                "voteCount": 0
+                "voteCount": 1
             },
             {
                 "optionId": 3,
-                "voteCount": 0
+                "voteCount": 2
             }
         ]
     },
@@ -21,15 +21,32 @@
         "options": [
             {
                 "optionId": 1,
-                "voteCount": 0
+                "voteCount": 3
             },
             {
                 "optionId": 2,
-                "voteCount": 0
+                "voteCount": 1
             },
             {
                 "optionId": 3,
-                "voteCount": 0
+                "voteCount": 1
+            }
+        ]
+    },
+    {
+        "pollId": 3,
+        "options": [
+            {
+                "optionId": 1,
+                "voteCount": 5
+            },
+            {
+                "optionId": 2,
+                "voteCount": 2
+            },
+            {
+                "optionId": 3,
+                "voteCount": 3
             }
         ]
     }
