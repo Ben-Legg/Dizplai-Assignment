@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', () => { // Wait until DOM is loade
         let prevChoice = document.querySelector('.selected');
         let prevSubmission = document.querySelector('.submitted');
 
-        if (prevChoice) {
+        if (prevChoice) { // Remove '.selected' from any elements
             prevChoice.classList.remove('selected');
         }
-        if (prevSubmission) {
+        if (prevSubmission) { // Remove '.submitted' from any elements
             prevSubmission.classList.remove('submitted');
         }
     });
@@ -31,19 +31,18 @@ document.addEventListener('DOMContentLoaded', () => { // Wait until DOM is loade
             
             if (!selectedButton) { // If no options are selected give class 'not-selected' for 2 seconds
                 submitButton.classList.toggle('not-selected');
-                setTimeout(() => {
+                setTimeout(() => { // Remove '.not-selected' after 0.5s
                     submitButton.classList.remove('not-selected');
                 }, 500);
             } else {
-                let endpoint = '/submitOption'; // Server endpoint for handling selected option
                 let selectedOption = selectedButton.id; // Get ID of option chosen
                 
-                fetch(endpoint, { // Send POST request to endpoint
+                fetch('/submitOption', { // POST JSON to endpoint for handling selected option
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json', // Sent as JSON
+                        'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ selectedOption }), // Convert to JSON string
+                    body: JSON.stringify({ selectedOption }), // Convert to JSON obj to JSON-formatted string
                 })
                 .then(response => response.json()) // Convert response from server
                 .then(data => {

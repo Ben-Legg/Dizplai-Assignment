@@ -22,6 +22,7 @@ body {
     color: #FFF;
 }
 
+/* Shared by both pages */
 .container {
     width: 80%;
     max-width: 400px;
@@ -54,6 +55,7 @@ h1 {
     font-size: 1em;
 }
 
+/* Poll page */
 div.option {
     transition: 1.5s;
     cursor: pointer;
@@ -88,6 +90,7 @@ div.submitted {
     color: #23e923;
 }
 
+/* Results page */
 div.result {
     display: flex;
     justify-content: space-between;
