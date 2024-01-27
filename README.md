@@ -2,12 +2,14 @@
 This project was a technical test for the Dizplai application process. I was tasked with making a basic two page web app that can allow users to vote on a poll and view the poll results.
 
 The server is a Node.js API, built using the Express framework, and the front-end uses EJS to generate dynamic HTML. As I had minimal expereience developing back-end code, this project introduced me to working with RESTful APIs.
+
 To complete this test I learnt:
 - **Node.js Fundamentals**
 - **How to develop APIs**
 - **How to use the Express framework**
 - **HTTP Methods in the context of APIs**
 - **Front-End Integration**
+
 And I improved my knowledge of:
 - **JavaScript**
 - **Error Handling**
