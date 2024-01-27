@@ -7,7 +7,7 @@
 <body>
     <div class="container">
         <img src="assets/logo.png">
-        <% if (Object.keys(resultsData).length > 0) { %>
+        <% if (Object.keys(resultsData).length > 0 & Object.keys(pollData).length > 0) { %>
             <h1>Thank you for your response!</h1>
             <% // Get text for each poll option from pollData object %>
             <% let optionOne = pollData.options.find(option => option.optionId === 1);%>
@@ -40,7 +40,7 @@
             <% }) %>
         <% } else { %>
             <div>
-                <h1>No Results Data Available</h1>
+                <h1>Error Retrieving Poll Data</h1>
             </div>
         <% } %>
     </div>

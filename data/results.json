@@ -4,15 +4,15 @@
         "options": [
             {
                 "optionId": 1,
-                "voteCount": 10
+                "voteCount": 0
             },
             {
                 "optionId": 2,
-                "voteCount": 1
+                "voteCount": 0
             },
             {
                 "optionId": 3,
-                "voteCount": 2
+                "voteCount": 0
             }
         ]
     },
