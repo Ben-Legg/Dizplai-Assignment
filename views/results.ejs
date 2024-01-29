@@ -6,7 +6,7 @@
 
 <body>
     <div class="container">
-        <img src="assets/logo.png">
+        <img src="assets/logo.png" alt="Dizplai text logo">
         <% if (Object.keys(resultsData).length > 0 & Object.keys(pollData).length > 0) { %>
             <h1>Thank you for your response!</h1>
             <% // Get text for each poll option from pollData object %>
@@ -33,7 +33,7 @@
 
             <% // Iterate over the sorted array to create the divs %>
             <% combinedResults.forEach(combinedResult => { %>
-                <div class="result" style="background: linear-gradient(to right, #996BF9 <%= combinedResult.votePercent %>%, transparent <%= combinedResult.votePercent %>%)"> 
+                <div class="result" style="background: linear-gradient(to right, #996BF9 <%= combinedResult.votePercent %>%, transparent <%= combinedResult.votePercent %>%)" aria-label="Poll Result"> 
                     <p class="option-text"><%= combinedResult.optionText %></p>
                     <p class="vote-count"><%= combinedResult.votePercent %>%</p>
                 </div>

@@ -7,7 +7,7 @@
 
 <body>
     <div class="container">
-        <img src="assets/logo.png">
+        <img src="assets/logo.png" alt="Dizplai text logo">
         <% if (Object.keys(pollData).length > 0) { %>
             <h1><%= pollData.question %></h1>
             <% let optionOne = pollData.options.find(option => option.optionId === 1);%>
@@ -16,12 +16,12 @@
             <% let choices = [ {option: optionOne.optionText}, {option: optionTwo.optionText}, {option: optionThree.optionText}]; %>
             <% let optionCounter = 1; %>
             <% choices.forEach(option => { %>
-                <div class="option" id="<%= optionCounter %>">
+                <div class="option" id="<%= optionCounter %>" aria-label="Poll Option">
                     <p><%= option.option %></p>
                 </div>
                 <% optionCounter++; %>
             <% }) %>
-            <div class="submit">
+            <div class="submit" aria-label="Submit Button">
                 <p>SUBMIT</p>
             </div>
         <% } else { %>
