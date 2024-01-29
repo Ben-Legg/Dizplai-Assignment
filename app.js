@@ -50,12 +50,18 @@ function writeJSONFile(filePath, data) { // Function to write to existing JSON f
 }
 
 function findPollDataById(pollId, data) { // Function to find poll matching chosen pollId [Returns: poll obj]
-    return data.find(poll => poll.pollId === pollId) || [];
+    data = data.find(poll => poll.pollId == pollId) || [];
+
+    if (data.length == 0) {
+        console.log(`Could not find data for pollId: ${pollId}`);
+    }
+
+    return data
 }
 
 function updateVoteCount(resultsData, selectedOption) { // Function to update vote count of selected option
     resultsData.forEach(result => { // Search through results to find results for specified pollId
-        if (result.pollId === pollId) {
+        if (result.pollId == pollId) {
             result.options.forEach(option => { // Search through results to find result with matching optionId
                 if (option.optionId == selectedOption) {
                     option.voteCount ++;
@@ -73,7 +79,7 @@ app.get('/', (req, res) => { // Route requests for '/' to poll page
     const pollData = findPollDataById(pollId, allPollsData);
 
     let status = 200;
-    if (allPollsData.length === 0) { // If unable to read poll data return server error code to client
+    if (allPollsData.length == 0) { // If unable to read poll data return server error code to client
         status = 500;
     }
     res.status(status).render('poll', { title, pollData });
@@ -99,7 +105,7 @@ app.get('/results', (req, res) => { // Route requests for '/results' to results 
     const resultsData = findPollDataById(pollId, allResultsData);
 
     let status = 200;
-    if (allPollsData.length === 0 || allResultsData.length === 0) { // If unable to read poll or results data return server error code to client
+    if (allPollsData.length == 0 || allResultsData.length == 0) { // If unable to read poll or results data return server error code to client
         status = 500;
     }
     res.status(status).render('results', { title, pollData, resultsData });
