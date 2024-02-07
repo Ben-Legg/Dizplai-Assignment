@@ -1,5 +1,5 @@
-# Dizplai-Assignment
-This project was a technical test for the Dizplai application process. I was tasked with making a basic two page web app that can allow users to vote on a poll and view the poll results.
+# Project Summary
+The goal of this project was to create a basic two page web app that can allow users to vote on a poll and view the poll results.
 
 The server is a Node.js API, built using the Express framework, and the front-end uses EJS to generate dynamic HTML. As I had minimal expereience developing back-end code, this project introduced me to working with RESTful APIs.
 
@@ -21,8 +21,8 @@ The initial prospect of undertaking this project was daunting however, it challe
 If I was to spend more time on this project I would rework the HTML structure & styling of the results on "/results" page, as the current implementation of the vote percentage visual removes/changes the background colour of each result.
 
 ## How to Run
-1. Clone repository: ```git clone https://github.com/Ben-Legg/Dizplai-Assignment.git```
-2. Enter git folder: ```cd Dizplai-Assignment```
+1. Clone repository: ```git clone https://github.com/Ben-Legg/Poll-Web-App.git```
+2. Enter git folder: ```cd Poll-Web-App```
 3. Install dependencies: ```npm install```
 4. Run server: ```node app```
 5. Open browser and go to: ```localhost:3000/```
